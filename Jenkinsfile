@@ -13,8 +13,11 @@ pipeline {
     
     stage('Security') {
         steps {
-            sh 'echo 0.11.1 > VERSION'
+          sh 'echo 0.11.1 > VERSION'
+          script {
             dockerTag = sh(returnStdout: true, script: 'cat VERSION')
+          }
+            
 
             //withEnv(["VERSION=\$(cat VERSION)"]){
                 snykSecurity monitorProjectOnBuild: false,
